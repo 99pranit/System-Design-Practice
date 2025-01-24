@@ -122,6 +122,14 @@ class database:
             [0, 1],
             [n, 0]
         ]
+
+        # Append the PK and FK attributes to many
+        for i, constraint in enumerate(self.e1_constraint):
+            if constraint in ['pk', 'fk']:
+                self.e2_attribute_name.append(self.e1_attribute_name[i])
+                self.e2_data_type.append(self.e1_data_type[i])
+                self.e2_constraint.append(constraint)
+
         return adjacency_matrix
 
     # Define N:1 relation
@@ -130,6 +138,14 @@ class database:
             [0, n],
             [1, 0]
         ]
+
+        # Append the PK and FK attributes to many
+        for i, constraint in enumerate(self.e2_constraint):
+            if constraint in ['pk', 'fk']:
+                self.e1_attribute_name.append(self.e2_attribute_name[i])
+                self.e1_data_type.append(self.e2_data_type[i])
+                self.e1_constraint.append(constraint)
+
         return adjacency_matrix
 
     # Define N:M relation (many-to-many)
